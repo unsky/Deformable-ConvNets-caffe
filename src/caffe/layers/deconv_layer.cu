@@ -1,12 +1,14 @@
 #include <vector>
 
 #include "caffe/layers/deconv_layer.hpp"
-
+#include <iostream>
+using namespace std;
 namespace caffe {
 
 template <typename Dtype>
 void DeconvolutionLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
+       
   const Dtype* weight = this->blobs_[0]->gpu_data();
   for (int i = 0; i < bottom.size(); ++i) {
     const Dtype* bottom_data = bottom[i]->gpu_data();
@@ -19,7 +21,11 @@ void DeconvolutionLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
         this->forward_gpu_bias(top_data + n * this->top_dim_, bias);
       }
     }
+   
   }
+
+  // cout << "bottom: "<<bottom[0]->shape_string() << "top: " << top[0]->shape_string() << " ";
+   
 }
 
 template <typename Dtype>

@@ -2,7 +2,8 @@
 
 #include "caffe/layers/concat_layer.hpp"
 #include "caffe/util/math_functions.hpp"
-
+#include<iostream>
+using  namespace std;
 namespace caffe {
 
 template <typename Dtype>
@@ -15,7 +16,7 @@ void ConcatLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
 
 template <typename Dtype>
 void ConcatLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top) {
+      const vector<Blob<Dtype>*>& top) {     
   const int num_axes = bottom[0]->num_axes();
   const ConcatParameter& concat_param = this->layer_param_.concat_param();
   if (concat_param.has_concat_dim()) {
@@ -35,12 +36,12 @@ void ConcatLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
   concat_input_size_ = bottom[0]->count(concat_axis_ + 1);
   int bottom_count_sum = bottom[0]->count();
   for (int i = 1; i < bottom.size(); ++i) {
+    
     CHECK_EQ(num_axes, bottom[i]->num_axes())
         << "All inputs must have the same #axes.";
     for (int j = 0; j < num_axes; ++j) {
-      if (j == concat_axis_) { continue; }
-      CHECK_EQ(top_shape[j], bottom[i]->shape(j))
-          << "All inputs must have the same shape, except at concat_axis.";
+      if (j == concat_axis_) { continue; } 
+       CHECK_EQ(top_shape[j], bottom[i]->shape(j)) <<"All inputs must have the same shape, except at concat_axis.";
     }
     bottom_count_sum += bottom[i]->count();
     top_shape[concat_axis_] += bottom[i]->shape(concat_axis_);
@@ -52,7 +53,6 @@ void ConcatLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
     top[0]->ShareDiff(*bottom[0]);
   }
 }
-
 template <typename Dtype>
 void ConcatLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {

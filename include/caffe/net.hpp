@@ -25,7 +25,6 @@ class Net {
  public:
   explicit Net(const NetParameter& param, const Net* root_net = NULL);
   explicit Net(const string& param_file, Phase phase,
-      const int level = 0, const vector<string>* stages = NULL,
       const Net* root_net = NULL);
   virtual ~Net() {}
 
@@ -33,16 +32,11 @@ class Net {
   void Init(const NetParameter& param);
 
   /**
-   * @brief Run Forward and return the result.
+   * @brief Run Forward with the input Blob%s already fed separately.
    *
+   * You can get the input blobs using input_blobs().
    */
-  const vector<Blob<Dtype>*>& Forward(Dtype* loss = NULL);
-  /// @brief DEPRECATED; use Forward() instead.
-  const vector<Blob<Dtype>*>& ForwardPrefilled(Dtype* loss = NULL) {
-    LOG_EVERY_N(WARNING, 1000) << "DEPRECATED: ForwardPrefilled() "
-        << "will be removed in a future version. Use Forward().";
-    return Forward(loss);
-  }
+  const vector<Blob<Dtype>*>& ForwardPrefilled(Dtype* loss = NULL);
 
   /**
    * The From and To variants of Forward and Backward operate on the
@@ -55,9 +49,14 @@ class Net {
   Dtype ForwardFromTo(int start, int end);
   Dtype ForwardFrom(int start);
   Dtype ForwardTo(int end);
-  /// @brief DEPRECATED; set input blobs then use Forward() instead.
+  /// @brief Run forward using a set of bottom blobs, and return the result.
   const vector<Blob<Dtype>*>& Forward(const vector<Blob<Dtype>* > & bottom,
       Dtype* loss = NULL);
+  /**
+   * @brief Run forward using a serialized BlobProtoVector and return the
+   *        result as a serialized BlobProtoVector
+   */
+  string Forward(const string& input_blob_protos, Dtype* loss = NULL);
 
   /**
    * @brief Zeroes out the diffs of all net parameters.
@@ -83,9 +82,9 @@ class Net {
    */
   void Reshape();
 
-  Dtype ForwardBackward() {
+  Dtype ForwardBackward(const vector<Blob<Dtype>* > & bottom) {
     Dtype loss;
-    Forward(&loss);
+    Forward(bottom, &loss);
     Backward();
     return loss;
   }
@@ -230,7 +229,7 @@ class Net {
 
  protected:
   // Helpers for Init.
-  /// @brief Append a new top blob to the net.
+  /// @brief Append a new input or top blob to the net.
   void AppendTop(const NetParameter& param, const int layer_id,
                  const int top_id, set<string>* available_blobs,
                  map<string, int>* blob_name_to_idx);
@@ -242,6 +241,8 @@ class Net {
   void AppendParam(const NetParameter& param, const int layer_id,
                    const int param_id);
 
+  /// @brief Helper for displaying debug info in Forward about input Blobs.
+  void InputDebugInfo(const int layer_id);
   /// @brief Helper for displaying debug info in Forward.
   void ForwardDebugInfo(const int layer_id);
   /// @brief Helper for displaying debug info in Backward.

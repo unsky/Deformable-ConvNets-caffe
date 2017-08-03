@@ -1,10 +1,10 @@
 #include <algorithm>
 #include <cfloat>
 #include <vector>
-
+#include <iostream>
 #include "caffe/layers/softmax_loss_layer.hpp"
 #include "caffe/util/math_functions.hpp"
-
+using namespace std;
 namespace caffe {
 
 template <typename Dtype>
@@ -61,6 +61,7 @@ void SoftmaxWithLossLayer<Dtype>::Forward_gpu(
   if (top.size() == 2) {
     top[1]->ShareData(prob_);
   }
+
 }
 
 template <typename Dtype>

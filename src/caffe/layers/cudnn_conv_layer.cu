@@ -1,8 +1,8 @@
 #ifdef USE_CUDNN
 #include <vector>
-
+#include<iostream>
 #include "caffe/layers/cudnn_conv_layer.hpp"
-
+using namespace std;
 namespace caffe {
 
 __global__ void sync_conv_groups() { }
@@ -14,7 +14,7 @@ void CuDNNConvolutionLayer<Dtype>::Forward_gpu(
   for (int i = 0; i < bottom.size(); ++i) {
     const Dtype* bottom_data = bottom[i]->gpu_data();
     Dtype* top_data = top[i]->mutable_gpu_data();
-
+    
     // Forward through cuDNN in parallel over groups.
     for (int g = 0; g < this->group_; g++) {
       // Filters.
@@ -37,13 +37,16 @@ void CuDNNConvolutionLayer<Dtype>::Forward_gpu(
               top_descs_[i], top_data + top_offset_ * g));
       }
     }
-
+     
     // Synchronize the work across groups, each of which went into its own
     // stream, by launching an empty kernel into the default (null) stream.
     // NOLINT_NEXT_LINE(whitespace/operators)
-    sync_conv_groups<<<1, 1>>>();
-  }
+    sync_conv_groups<<<1, 1>>>();	
+
 }
+
+  }
+  
 
 template <typename Dtype>
 void CuDNNConvolutionLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,

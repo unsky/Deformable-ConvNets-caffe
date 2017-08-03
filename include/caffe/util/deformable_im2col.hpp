@@ -11,6 +11,7 @@ void deformable_im2col_gpu(const Dtype* data_im, const Dtype* data_offset, const
     const int dilation_h, const int dilation_w,
     const uint32_t deformable_group,
     Dtype* data_col);
+void ooop();
 
 template <typename Dtype>
 void deformable_col2im_gpu(const Dtype* data_col, const Dtype* data_offset, const int channels,

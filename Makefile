@@ -192,12 +192,12 @@ ifeq ($(USE_LMDB), 1)
 	LIBRARIES += lmdb
 endif
 ifeq ($(USE_OPENCV), 1)
-	LIBRARIES += opencv_core opencv_highgui opencv_imgproc
+	LIBRARIES += opencv_core opencv_highgui opencv_imgproc 
 
 	ifeq ($(OPENCV_VERSION), 3)
 		LIBRARIES += opencv_imgcodecs
 	endif
-
+		
 endif
 PYTHON_LIBRARIES ?= boost_python python2.7
 WARNINGS := -Wall -Wno-sign-compare
@@ -248,8 +248,6 @@ ifeq ($(UNAME), Linux)
 	LINUX := 1
 else ifeq ($(UNAME), Darwin)
 	OSX := 1
-	OSX_MAJOR_VERSION := $(shell sw_vers -productVersion | cut -f 1 -d .)
-	OSX_MINOR_VERSION := $(shell sw_vers -productVersion | cut -f 2 -d .)
 endif
 
 # Linux
@@ -272,29 +270,22 @@ endif
 ifeq ($(OSX), 1)
 	CXX := /usr/bin/clang++
 	ifneq ($(CPU_ONLY), 1)
-		CUDA_VERSION := $(shell $(CUDA_DIR)/bin/nvcc -V | grep -o 'release [0-9.]*' | tr -d '[a-z ]')
+		CUDA_VERSION := $(shell $(CUDA_DIR)/bin/nvcc -V | grep -o 'release \d' | grep -o '\d')
 		ifeq ($(shell echo | awk '{exit $(CUDA_VERSION) < 7.0;}'), 1)
 			CXXFLAGS += -stdlib=libstdc++
 			LINKFLAGS += -stdlib=libstdc++
 		endif
 		# clang throws this warning for cuda headers
 		WARNINGS += -Wno-unneeded-internal-declaration
-		# 10.11 strips DYLD_* env vars so link CUDA (rpath is available on 10.5+)
-		OSX_10_OR_LATER   := $(shell [ $(OSX_MAJOR_VERSION) -ge 10 ] && echo true)
-		OSX_10_5_OR_LATER := $(shell [ $(OSX_MINOR_VERSION) -ge 5 ] && echo true)
-		ifeq ($(OSX_10_OR_LATER),true)
-			ifeq ($(OSX_10_5_OR_LATER),true)
-				LDFLAGS += -Wl,-rpath,$(CUDA_LIB_DIR)
-			endif
-		endif
 	endif
 	# gtest needs to use its own tuple to not conflict with clang
 	COMMON_FLAGS += -DGTEST_USE_OWN_TR1_TUPLE=1
 	# boost::thread is called boost_thread-mt to mark multithreading on OS X
 	LIBRARIES += boost_thread-mt
 	# we need to explicitly ask for the rpath to be obeyed
+	DYNAMIC_FLAGS := -install_name @rpath/libcaffe.so
 	ORIGIN := @loader_path
-	VERSIONFLAGS += -Wl,-install_name,@rpath/$(DYNAMIC_VERSIONED_NAME_SHORT) -Wl,-rpath,$(ORIGIN)/../../build/lib
+	VERSIONFLAGS += -Wl,-install_name,$(DYNAMIC_VERSIONED_NAME_SHORT) -Wl,-rpath,$(ORIGIN)/../../build/lib
 else
 	ORIGIN := \$$ORIGIN
 endif
@@ -364,9 +355,9 @@ ifeq ($(BLAS), mkl)
 	# MKL
 	LIBRARIES += mkl_rt
 	COMMON_FLAGS += -DUSE_MKL
-	MKLROOT ?= /opt/intel/mkl
-	BLAS_INCLUDE ?= $(MKLROOT)/include
-	BLAS_LIB ?= $(MKLROOT)/lib $(MKLROOT)/lib/intel64
+	MKL_DIR ?= /opt/intel/mkl
+	BLAS_INCLUDE ?= $(MKL_DIR)/include
+	BLAS_LIB ?= $(MKL_DIR)/lib $(MKL_DIR)/lib/intel64
 else ifeq ($(BLAS), open)
 	# OpenBLAS
 	LIBRARIES += openblas
@@ -382,11 +373,8 @@ else
 		LIBRARIES += cblas
 		# 10.10 has accelerate while 10.9 has veclib
 		XCODE_CLT_VER := $(shell pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep 'version' | sed 's/[^0-9]*\([0-9]\).*/\1/')
-		XCODE_CLT_GEQ_7 := $(shell [ $(XCODE_CLT_VER) -gt 6 ] && echo 1)
 		XCODE_CLT_GEQ_6 := $(shell [ $(XCODE_CLT_VER) -gt 5 ] && echo 1)
-		ifeq ($(XCODE_CLT_GEQ_7), 1)
-			BLAS_INCLUDE ?= /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/$(shell ls /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/ | sort | tail -1)/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers
-		else ifeq ($(XCODE_CLT_GEQ_6), 1)
+		ifeq ($(XCODE_CLT_GEQ_6), 1)
 			BLAS_INCLUDE ?= /System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Headers/
 			LDFLAGS += -framework Accelerate
 		else
@@ -564,7 +552,7 @@ $(ALL_BUILD_DIRS): | $(BUILD_DIR_LINK)
 
 $(DYNAMIC_NAME): $(OBJS) | $(LIB_BUILD_DIR)
 	@ echo LD -o $@
-	$(Q)$(CXX) -shared -o $@ $(OBJS) $(VERSIONFLAGS) $(LINKFLAGS) $(LDFLAGS)
+	$(Q)$(CXX) -shared -o $@ $(OBJS) $(VERSIONFLAGS) $(LINKFLAGS) $(LDFLAGS) $(DYNAMIC_FLAGS)
 	@ cd $(BUILD_DIR)/lib; rm -f $(DYNAMIC_NAME_SHORT);   ln -s $(DYNAMIC_VERSIONED_NAME_SHORT) $(DYNAMIC_NAME_SHORT)
 
 $(STATIC_NAME): $(OBJS) | $(LIB_BUILD_DIR)

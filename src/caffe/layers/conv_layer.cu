@@ -1,7 +1,7 @@
 #include <vector>
-
+#include<iostream>
 #include "caffe/layers/conv_layer.hpp"
-
+using namespace std;
 namespace caffe {
 
 template <typename Dtype>

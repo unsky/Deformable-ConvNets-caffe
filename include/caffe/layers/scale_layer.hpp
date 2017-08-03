@@ -12,15 +12,13 @@
 namespace caffe {
 
 /**
- * @brief Computes the elementwise product of two input Blobs, with the shape of
- *        the latter Blob "broadcast" to match the shape of the former.
+ * @brief Computes a product of two input Blobs, with the shape of the
+ *        latter Blob "broadcast" to match the shape of the former.
  *        Equivalent to tiling the latter Blob, then computing the elementwise
- *        product. Note: for efficiency and convenience, this layer can
- *        additionally perform a "broadcast" sum too when `bias_term: true`
- *        is set.
+ *        product.
  *
- * The latter, scale input may be omitted, in which case it's learned as
- * parameter of the layer (as is the bias, if it is included).
+ * The second input may be omitted, in which case it's learned as a parameter
+ * of the layer.
  */
 template <typename Dtype>
 class ScaleLayer: public Layer<Dtype> {

@@ -1,9 +1,9 @@
 #include <cfloat>
 #include <vector>
-
+#include <iostream>
 #include "caffe/layers/eltwise_layer.hpp"
 #include "caffe/util/math_functions.hpp"
-
+using namespace std;
 namespace caffe {
 
 template <typename Dtype>
@@ -65,6 +65,7 @@ void EltwiseLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
   default:
     LOG(FATAL) << "Unknown elementwise operation.";
   }
+
 }
 
 template <typename Dtype>

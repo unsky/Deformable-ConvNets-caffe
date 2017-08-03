@@ -1,11 +1,12 @@
 #include <algorithm>
 #include <vector>
+#include <iostream>
 
 #include "caffe/filler.hpp"
 #include "caffe/layers/base_conv_layer.hpp"
 #include "caffe/util/im2col.hpp"
 #include "caffe/util/math_functions.hpp"
-
+using namespace std;
 namespace caffe {
 
 template <typename Dtype>
@@ -185,6 +186,8 @@ void BaseConvolutionLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
 template <typename Dtype>
 void BaseConvolutionLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
+        
+
   const int first_spatial_axis = channel_axis_ + 1;
   CHECK_EQ(bottom[0]->num_axes(), first_spatial_axis + num_spatial_axes_)
       << "bottom num_axes may not change.";

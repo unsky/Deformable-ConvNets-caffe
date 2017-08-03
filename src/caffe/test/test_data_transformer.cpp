@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "gtest/gtest.h"
+#include "leveldb/db.h"
 
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"

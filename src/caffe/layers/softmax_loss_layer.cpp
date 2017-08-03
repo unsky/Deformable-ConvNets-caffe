@@ -44,11 +44,11 @@ void SoftmaxWithLossLayer<Dtype>::Reshape(
       bottom[0]->CanonicalAxisIndex(this->layer_param_.softmax_param().axis());
   outer_num_ = bottom[0]->count(0, softmax_axis_);
   inner_num_ = bottom[0]->count(softmax_axis_ + 1);
-  CHECK_EQ(outer_num_ * inner_num_, bottom[1]->count())
-      << "Number of labels must match number of predictions; "
-      << "e.g., if softmax axis == 1 and prediction shape is (N, C, H, W), "
-      << "label count (number of labels) must be N*H*W, "
-      << "with integer values in {0, 1, ..., C-1}.";
+ // CHECK_EQ(outer_num_ * inner_num_, bottom[1]->count())
+  //    << "Number of labels must match number of predictions; "
+ //     << "e.g., if softmax axis == 1 and prediction shape is (N, C, H, W), "
+ //     << "label count (number of labels) must be N*H*W, "
+ //     << "with integer values in {0, 1, ..., C-1}.";
   if (top.size() >= 2) {
     // softmax output
     top[1]->ReshapeLike(*bottom[0]);

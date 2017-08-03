@@ -14,10 +14,9 @@ set(__veclib_include_suffix "Frameworks/vecLib.framework/Versions/Current/Header
 
 find_path(vecLib_INCLUDE_DIR vecLib.h
           DOC "vecLib include directory"
-          PATHS /System/Library/Frameworks/Accelerate.framework/Versions/Current/${__veclib_include_suffix}
-                /System/Library/${__veclib_include_suffix}
-                /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Headers/
-          NO_DEFAULT_PATH)
+          PATHS /System/Library/${__veclib_include_suffix}
+                /System/Library/Frameworks/Accelerate.framework/Versions/Current/${__veclib_include_suffix}
+                /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Headers/)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(vecLib DEFAULT_MSG vecLib_INCLUDE_DIR)

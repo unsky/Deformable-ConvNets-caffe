@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 
 #include "caffe/common.hpp"
 #include "caffe/util/gpu_util.cuh"
@@ -283,7 +284,6 @@ __global__ void deformable_col2im_gpu_kernel(const int n, const Dtype* data_col,
     }
   }
 }
-
 template <typename Dtype>
 void deformable_col2im_gpu(const Dtype* data_col, const Dtype* data_offset, const int channels,
     const int height, const int width, const int kernel_h, const int kernel_w,
