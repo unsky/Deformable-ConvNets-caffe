@@ -17,7 +17,7 @@ All codes is in deformable_conv_cxx/
 #### 1. Add to layer definition to caffe.proto:
 
 ```
-  optional DeformableConvolutionParameter deformable_convolution_param = 999;
+optional DeformableConvolutionParameter deformable_convolution_param = 999;
   
 message DeformableConvolutionParameter {
   optional uint32 num_output = 1; 
