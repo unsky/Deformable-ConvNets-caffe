@@ -5,6 +5,16 @@
  ## Usage
  ### Use my  modified caffe 
 The MNIST example is in caffe/defor/ 
+
+Compile:
+```
+mkdir build
+cd build
+cmake ..
+make  all
+```
+
+Train:
 ```
 cd caffe/defor/
 ./train_lenet.sh
