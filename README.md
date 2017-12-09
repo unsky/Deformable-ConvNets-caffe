@@ -1,4 +1,4 @@
-## caffe implementation of Deformable Convolutional Networks
+## Caffe implementation of Deformable Convolutional Networks
  * By unsky
  * Thanks to office code: https://github.com/msracver/Deformable-ConvNets
 
