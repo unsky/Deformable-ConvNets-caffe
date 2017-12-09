@@ -21,7 +21,7 @@ cd caffe/defor/
 ```
 and the model is in caffe/defor/model_protxt/
 
-### Use the code in your caffe
+### Use the codes in your caffe
 All codes is in deformable_conv_cxx/
 
 #### 1. Add to layer definition to caffe.proto:
