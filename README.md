@@ -6,10 +6,10 @@
  ### Use my  modified caffe 
 The MNIST example is in caffe/defor/ 
 ```
+cd caffe/defor/
 ./train_lenet.sh
-
 ```
-and the model is in model_protxt
+and the model is in caffe/defor/model_protxt/
 
 ### Use the code in your caffe
 All codes is in deformable_conv_cxx/
