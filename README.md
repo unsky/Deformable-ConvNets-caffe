@@ -79,21 +79,19 @@ make  all
 
 ## About the deformable conv layer
 The params in DeformableConvolution:
-
+```
 bottom[0](data): (batch_size, channel, height, width)
-
 bottom[1] (offset): (batch_size, group * kernel[0] * kernel[1], height, width)
-
+```
 Define:
-
+```
 f(x,k,p,s,d) = floor((x+2*p-d*(k-1)-1)/s)+1
- 
+```
 the output of the DeformableConvolution layer:
-
+```
 out_height=f(height, kernel[0], pad[0], stride[0], dilate[0])
-
 out_width=f(width, kernel[1], pad[1], stride[1], dilate[1])
-
+```
 
 
 like：
