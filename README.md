@@ -18,10 +18,7 @@ All codes is in deformable_conv_cxx/
 
 ```
   optional DeformableConvolutionParameter deformable_convolution_param = 999;
-
-```
-and
-```
+  
 message DeformableConvolutionParameter {
   optional uint32 num_output = 1; 
   optional bool bias_term = 2 [default = true]; 
