@@ -93,9 +93,7 @@ out_height=f(height, kernel[0], pad[0], stride[0], dilate[0])
 out_width=f(width, kernel[1], pad[1], stride[1], dilate[1])
 ```
 
-
-like：
-Offset:
+Offset layer:
 ```
 layer {
   name: "offset"
@@ -114,7 +112,6 @@ layer {
     stride: 1
     dilation: 2
     pad: 2
-    
     weight_filler {
       type: "xavier"
     }
@@ -125,7 +122,7 @@ layer {
 }
 ```
 
-DeformableConvolution
+DeformableConvolution layer:
 
 ```
 layer {
@@ -151,16 +148,12 @@ layer {
     weight_filler {
       type: "xavier"
     }
-    
     bias_filler {
       type: "constant"
     }
   }
 }
 ```
-
-
-
 
 ## Result
 
