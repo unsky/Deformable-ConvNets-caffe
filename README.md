@@ -12,9 +12,9 @@ The MNIST example is in caffe/defor/
 and the model is in model_protxt
 
 ### Use the code in your caffe
-all codes is in deformable_conv_cxx/
+All codes is in deformable_conv_cxx/
 
-#### 1. add to layer definition to caffe.proto:
+#### 1. Add to layer definition to caffe.proto:
 
 ```
   optional DeformableConvolutionParameter deformable_convolution_param = 999;
@@ -50,7 +50,7 @@ message DeformableConvolutionParameter {
 ```
 you can read the template in deformable_conv_cxx/caffe.proto
 
-#### 2.move codes to  your caffe
+#### 2.Move codes to  your caffe
 ```
 move deformable_conv_layer.cpp and deformable_conv_layer.cu to yourcaffepath/src\caffe\layers\
 
@@ -62,7 +62,7 @@ move deformable_im2col.cu to yourcaffepath\src\caffe\util\
 
 move deformable_im2col.hpp to yourcaffepath\include\caffe\util\
 ```
-#### compile in your caffe root path
+#### Compile in your caffe root path
 ```
 mkdir build
 cd build
