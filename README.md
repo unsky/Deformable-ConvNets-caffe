@@ -1,6 +1,6 @@
 ## Caffe implementation of Deformable Convolutional Networks
  * By unsky
- * Thanks to office code: https://github.com/msracver/Deformable-ConvNets
+ * Thanks to offical code: https://github.com/msracver/Deformable-ConvNets
  
 ## Result
 
@@ -38,9 +38,9 @@ cd caffe/defor/
 and the model is in caffe/defor/model_protxt/
 
 ### Use the codes in your caffe
-All codes is in deformable_conv_cxx/
+All codes are in deformable_conv_cxx/
 
-#### 1. Add to layer definition to caffe.proto:
+#### 1. Add  layer definition to caffe.proto:
 
 ```
 optional DeformableConvolutionParameter deformable_convolution_param = 999;
@@ -85,14 +85,13 @@ move deformable_im2col.cu to yourcaffepath\src\caffe\util\
 
 move deformable_im2col.hpp to yourcaffepath\include\caffe\util\
 ```
-#### Compile in your caffe root path
+#### 3.Compile in your caffe root path
 ```
 mkdir build
 cd build
 cmake ..
 make  all
 ```
-
 ## About the deformable conv layer
 The params in DeformableConvolution:
 ```
