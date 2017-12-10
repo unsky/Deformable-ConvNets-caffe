@@ -96,7 +96,7 @@ make  all
 The params in DeformableConvolution:
 ```
 bottom[0](data): (batch_size, channel, height, width)
-bottom[1] (offset): (batch_size, group * kernel[0] * kernel[1], height, width)
+bottom[1] (offset): (batch_size, group * kernel[0] * kernel[1]*2, height, width)
 ```
 Define:
 ```
