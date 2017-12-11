@@ -41,7 +41,7 @@ message DeformableConvolutionParameter {
   optional uint32 kernel_w = 12; // The kernel width (2D only)
   optional uint32 stride_h = 13; // The stride height (2D only)
   optional uint32 stride_w = 14; // The stride width (2D only)
-  optional uint32 group = 5 [default = 4]; // The group size for group conv
+  optional uint32 deformable_group = 5 [default = 4]; // The group size for group conv
   optional FillerParameter weight_filler = 7; // The filler for the weight
   optional FillerParameter bias_filler = 8; // The filler for the bias
   enum Engine {
