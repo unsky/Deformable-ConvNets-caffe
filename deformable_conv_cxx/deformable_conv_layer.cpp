@@ -221,10 +221,7 @@ void DeformableConvolutionLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& b
 
   CHECK_EQ(bottom[1]->shape(2), bottom[0]->shape(2))
   << "Height and width of deformable conv layer and offset should be equal";
-cout<<bottom[1]->shape(2)<<" "<< bottom[1]->shape(3)<<endl;
-cout<<bottom[0]->shape(2)<<" "<< bottom[0]->shape(3)<<endl;
-cout<<bottom[1]->shape_string()<<endl;
-cout<<bottom[0]->shape_string()<<endl;
+
   CHECK_EQ(bottom[1]->shape(3), bottom[0]->shape(3))
   << "Height and width of deformable conv layer and offset should be equal";
   if (reverse_dimensions()) {
