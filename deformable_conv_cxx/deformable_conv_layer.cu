@@ -115,18 +115,6 @@ void DeformableConvolutionLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>&
               }
       }    
   }
-  // cout<<"--------------------------"<<endl;
-
-  // cout<<"top:"<<endl;
-  // cout<<top[0]->asum_data()/top[0]->count()<<endl;
-  // cout<<"grad: "<<endl;
-
-  // cout<<"bootom: "<<bottom[0]->asum_diff()/bottom[0]->count()<<" "<<bottom[1]->asum_diff()/bottom[1]->count()<<endl;
-  // cout<< "top grad: "<<top[0]->asum_diff()/top[0]->count()<<endl;
-  // cout<<"--------------------------"<<endl;
-
-}
-//
 
 INSTANTIATE_LAYER_GPU_FUNCS(DeformableConvolutionLayer);
 
