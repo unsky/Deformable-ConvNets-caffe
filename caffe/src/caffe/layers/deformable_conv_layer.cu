@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "caffe/layers/deformable_conv_layer.hpp"
-#include "caffe/util/im2col.hpp"
 using namespace std;
 namespace caffe {
 template <typename Dtype>
