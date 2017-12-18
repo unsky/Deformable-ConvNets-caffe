@@ -68,6 +68,7 @@ void DeformableConvolutionLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bott
   
   this->input_offset_dim_ = bottom[1]->count(this->channel_axis_);
 
+
   this->bottom_dim_ = bottom[0]->count(this->channel_axis_);
   this->top_dim_ = top[0]->count(this->channel_axis_);
   this->num_kernels_im2col_ = this->conv_in_channels_ * this->conv_out_spatial_dim_;
@@ -100,6 +101,8 @@ void DeformableConvolutionLayer<Dtype>::compute_output_shape() {
 template <typename Dtype>
 void DeformableConvolutionLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
+
+
   // Configure the kernel size, padding, stride, and inputs.
   DeformableConvolutionParameter conv_param = this->layer_param_.deformable_convolution_param();
   this->force_nd_im2col_ = conv_param.force_nd_im2col();
@@ -208,9 +211,23 @@ void DeformableConvolutionLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& b
   this->num_output_ = this->layer_param_.deformable_convolution_param().num_output();
   CHECK_GT(this->num_output_, 0);
   this->group_ = this->layer_param_.deformable_convolution_param().group();
+  this->deformable_group_ = this->layer_param_.deformable_convolution_param().deformable_group();
   CHECK_EQ(this->channels_ % this->group_, 0);
   CHECK_EQ(this->num_output_ % this->group_, 0)
       << "Number of output should be multiples of group.";
+
+
+  CHECK_EQ(bottom[1]->shape(1), kernel_shape_data[0]*kernel_shape_data[1]*this->deformable_group_*2)
+  << "Number channels of offset should be kernel*h*kernel_w*deformance*2";
+
+  CHECK_EQ(bottom[1]->shape(2), bottom[0]->shape(2))
+  << "Height and width of deformable conv layer and offset should be equal";
+// cout<<bottom[1]->shape(2)<<" "<< bottom[1]->shape(3)<<endl;
+// cout<<bottom[0]->shape(2)<<" "<< bottom[0]->shape(3)<<endl;
+// cout<<bottom[1]->shape_string()<<endl;
+// cout<<bottom[0]->shape_string()<<endl;
+  CHECK_EQ(bottom[1]->shape(3), bottom[0]->shape(3))
+  << "Height and width of deformable conv layer and offset should be equal";
   if (reverse_dimensions()) {
     this->conv_out_channels_ = this->channels_;
     this->conv_in_channels_ = this->num_output_;

@@ -210,18 +210,22 @@ void DeformableConvolutionLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& b
   this->channels_ = bottom[0]->shape(this->channel_axis_);
   this->num_output_ = this->layer_param_.deformable_convolution_param().num_output();
   CHECK_GT(this->num_output_, 0);
-  this->group_ = this->layer_param_.deformable_convolution_param().deformable_group();
+  this->group_ = this->layer_param_.deformable_convolution_param().group();
+  this->deformable_group_ = this->layer_param_.deformable_convolution_param().deformable_group();
   CHECK_EQ(this->channels_ % this->group_, 0);
   CHECK_EQ(this->num_output_ % this->group_, 0)
       << "Number of output should be multiples of group.";
 
 
-  CHECK_EQ(bottom[1]->shape(1), kernel_shape_data[0]*kernel_shape_data[1]*this->group_*2)
+  CHECK_EQ(bottom[1]->shape(1), kernel_shape_data[0]*kernel_shape_data[1]*this->deformable_group_*2)
   << "Number channels of offset should be kernel*h*kernel_w*deformance*2";
 
   CHECK_EQ(bottom[1]->shape(2), bottom[0]->shape(2))
   << "Height and width of deformable conv layer and offset should be equal";
-
+// cout<<bottom[1]->shape(2)<<" "<< bottom[1]->shape(3)<<endl;
+// cout<<bottom[0]->shape(2)<<" "<< bottom[0]->shape(3)<<endl;
+// cout<<bottom[1]->shape_string()<<endl;
+// cout<<bottom[0]->shape_string()<<endl;
   CHECK_EQ(bottom[1]->shape(3), bottom[0]->shape(3))
   << "Height and width of deformable conv layer and offset should be equal";
   if (reverse_dimensions()) {

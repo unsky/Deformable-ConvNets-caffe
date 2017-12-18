@@ -112,24 +112,21 @@ layer {
   param {
     lr_mult: 1
   }
-  param {
-    lr_mult: 2
-  }
+
   deformable_convolution_param {
     num_output: 512
     kernel_size: 3
     stride: 1
     pad: 1
     engine: 1
-    dilation: 2
+
+    bias_term: False
     deformable_group: 4
     weight_filler {
       type: "xavier"
     }
     
-    bias_filler {
-      type: "constant"
-    }
+
   }
 }
 layer {
