@@ -1,8 +1,11 @@
 ## Caffe implementation of Deformable Convolutional Networks
  * Thanks to offical code: https://github.com/msracver/Deformable-ConvNets
  
- ## Usage
- ### Use my  modified caffe 
+## faster rcnn(ResNe50) results:
+coming soon
+ 
+## Usage
+### Use my  modified caffe 
 The MNIST example is in caffe/defor/ 
 
 Compile:
@@ -19,6 +22,15 @@ cd caffe/defor/
 ./train_lenet.sh
 ```
 and the model is in caffe/defor/model_protxt/
+### use faster rcnn
+Train:
+```
+./experiments/scripts/faster_rcnn_end2end.sh  0 ResNet50  pascal_voc
+```
+test
+```
+./test.sh  0 ResNet50  pascal_voc
+```
 
 ### Use the codes in your caffe
 All codes are in deformable_conv_cxx/
