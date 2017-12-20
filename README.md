@@ -9,23 +9,23 @@ coming soon
 The MNIST example is in caffe/defor/ 
 
 Compile:
-```cpp
+```bash
 mkdir build cd build cmake ..  make  all
 ```
 
 Train:
-```cpp
+```cbash
 cd caffe/defor/
 ./train_lenet.sh
 ```
 and the model is in caffe/defor/model_protxt/
 ### use faster rcnn
 Train:
-```cpp
+```bash
 ./experiments/scripts/faster_rcnn_end2end.sh  0 ResNet50  pascal_voc
 ```
 test
-```cpp
+```bash
 ./test.sh  0 ResNet50  pascal_voc
 ```
 
@@ -34,7 +34,7 @@ All codes are in deformable_conv_cxx/
 
 #### 1. Add  layer definition to caffe.proto:
 
-```cpp
+```proto
 optional DeformableConvolutionParameter deformable_convolution_param = 999;
   
 message DeformableConvolutionParameter {
@@ -67,7 +67,7 @@ message DeformableConvolutionParameter {
 you can read the template in deformable_conv_cxx/caffe.proto
 
 #### 2.Move codes to  your caffe
-```cpp
+```bash
 move deformable_conv_layer.cpp and deformable_conv_layer.cu to yourcaffepath/src\caffe\layers\
 
 move deformable_conv_layer.hpp to yourcaffepath/include\caffe\layers\
@@ -79,7 +79,7 @@ move deformable_im2col.cu to yourcaffepath\src\caffe\util\
 move deformable_im2col.hpp to yourcaffepath\include\caffe\util\
 ```
 #### 3.Compile in your caffe root path
-```cpp
+```bash
 mkdir build cd build  cmake ..   make  all
 ```
 ## About the deformable conv layer
@@ -99,7 +99,7 @@ out_width=f(width, kernel[1], pad[1], stride[1], dilate[1])
 ```
 
 Offset layer:
-```cpp
+```proto
 layer {
   name: "offset"
   type: "Convolution"
@@ -129,7 +129,7 @@ layer {
 
 DeformableConvolution layer:
 
-```cpp
+```proto
 layer {
   name: "dec"
   type: "DeformableConvolution"
