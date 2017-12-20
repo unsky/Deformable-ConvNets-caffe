@@ -9,26 +9,23 @@ coming soon
 The MNIST example is in caffe/defor/ 
 
 Compile:
-```
-mkdir build
-cd build
-cmake ..
-make  all
+```cpp
+mkdir build cd build cmake ..  make  all
 ```
 
 Train:
-```
+```cpp
 cd caffe/defor/
 ./train_lenet.sh
 ```
 and the model is in caffe/defor/model_protxt/
 ### use faster rcnn
 Train:
-```
+```cpp
 ./experiments/scripts/faster_rcnn_end2end.sh  0 ResNet50  pascal_voc
 ```
 test
-```
+```cpp
 ./test.sh  0 ResNet50  pascal_voc
 ```
 
@@ -37,7 +34,7 @@ All codes are in deformable_conv_cxx/
 
 #### 1. Add  layer definition to caffe.proto:
 
-```
+```cpp
 optional DeformableConvolutionParameter deformable_convolution_param = 999;
   
 message DeformableConvolutionParameter {
@@ -53,7 +50,8 @@ message DeformableConvolutionParameter {
   optional uint32 kernel_w = 12; // The kernel width (2D only)
   optional uint32 stride_h = 13; // The stride height (2D only)
   optional uint32 stride_w = 14; // The stride width (2D only)
-  optional uint32 deformable_group = 5 [default = 4]; // The group size for group conv
+  optional uint32 group = 5 [default = 4]; 
+  optional uint32 deformable_group = 25 [default = 4]; 
   optional FillerParameter weight_filler = 7; // The filler for the weight
   optional FillerParameter bias_filler = 8; // The filler for the bias
   enum Engine {
@@ -69,7 +67,7 @@ message DeformableConvolutionParameter {
 you can read the template in deformable_conv_cxx/caffe.proto
 
 #### 2.Move codes to  your caffe
-```
+```cpp
 move deformable_conv_layer.cpp and deformable_conv_layer.cu to yourcaffepath/src\caffe\layers\
 
 move deformable_conv_layer.hpp to yourcaffepath/include\caffe\layers\
@@ -81,11 +79,8 @@ move deformable_im2col.cu to yourcaffepath\src\caffe\util\
 move deformable_im2col.hpp to yourcaffepath\include\caffe\util\
 ```
 #### 3.Compile in your caffe root path
-```
-mkdir build
-cd build
-cmake ..
-make  all
+```cpp
+mkdir build cd build  cmake ..   make  all
 ```
 ## About the deformable conv layer
 The params in DeformableConvolution:
@@ -104,7 +99,7 @@ out_width=f(width, kernel[1], pad[1], stride[1], dilate[1])
 ```
 
 Offset layer:
-```
+```cpp
 layer {
   name: "offset"
   type: "Convolution"
@@ -134,7 +129,7 @@ layer {
 
 DeformableConvolution layer:
 
-```
+```cpp
 layer {
   name: "dec"
   type: "DeformableConvolution"
