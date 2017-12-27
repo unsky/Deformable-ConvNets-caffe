@@ -1,9 +1,12 @@
 ## Caffe implementation of Deformable Convolutional Networks
  * Thanks to offical code: https://github.com/msracver/Deformable-ConvNets
  
-## faster rcnn(ResNe50) results:
-coming soon
- 
+## faster rcnn results:
+| method@0.5| aerpplane| bicycle| bird |bottle |bus|car|cat |chair|cow|diningtable|dog |horse|motorbike|person |pottedplant|sheep|sofa |train|tv|
+| --- |:-----:| -----:| -----:| ------:|-------:|------:|-----:|-----:|-------:|-----:| --- |:-----:| -----:| -----:| ------:|-------:|------:|-----:|-----:|-------:|
+| faster rcnn(ResNe50
+without OHEM,
+deformable roi pooling）|    
 ## Usage
 ### Use my  modified caffe 
 The MNIST example is in caffe/defor/ 
