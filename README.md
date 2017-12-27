@@ -2,11 +2,8 @@
  * Thanks to offical code: https://github.com/msracver/Deformable-ConvNets
  
 ## faster rcnn results:
-| method@0.5| aerpplane| bicycle| bird |bottle |bus|car|cat |chair|cow|diningtable|dog |horse|motorbike|person |pottedplant|sheep|sofa |train|tv|
-| --- |:-----:| -----:| -----:| ------:|-------:|------:|-----:|-----:|-------:|-----:| --- |:-----:| -----:| -----:| ------:|-------:|------:|-----:|-----:|-------:|
-| faster rcnn(ResNe50
-without OHEM,
-deformable roi pooling）|    
+|@0.5| aerpplane| bicycle|bird|bottle |bus|car|cat |chair|cow|diningtable|dog |horse|motorbike|person |pottedplant|sheep|sofa|train|tv|
+| --- |:----:| -----:| -----:| ------:|-------:|------:|-----:|-----:|-------:|-----:| --- |:-----:| -----:| -----:| ------:|-------:|------:|-----:|-----:|-------:|
 ## Usage
 ### Use my  modified caffe 
 The MNIST example is in caffe/defor/ 
