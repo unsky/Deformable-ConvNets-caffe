@@ -13,7 +13,6 @@ void DeformableConvolutionLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& 
     const Dtype* offset = bottom[1]->gpu_data();
     top[0]->scale_data(0);//data protect
     Dtype* top_data = top[0]->mutable_gpu_data();
-    Dtype *col_buff =this->col_buffer_.mutable_gpu_data();
     for (int n = 0; n < this->num_; ++n) {
       const Dtype* col_buff = bottom_data + n*this->bottom_dim_;
       deformable_im2col_gpu<Dtype>(bottom_data + n*this->bottom_dim_, //data_col
@@ -23,14 +22,16 @@ void DeformableConvolutionLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& 
                                           this->pad_.cpu_data()[0],this->pad_.cpu_data()[1],this->stride_.cpu_data()[0],this->stride_.cpu_data()[1],
                                           this->dilation_.cpu_data()[0],this->dilation_.cpu_data()[1],this->deformable_group_,
                                           this->col_buffer_.mutable_gpu_data());
+
     // gemm
     for (int g = 0; g < this->group_; ++g) {
           caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasNoTrans, this->conv_out_channels_ /
                                 this->group_, this->conv_out_spatial_dim_, this->kernel_dim_,
-                                (Dtype)1., weights + this->weight_offset_ * g, col_buff + this->col_offset_ * g,
-                                (Dtype)0., top_data + n * this->top_dim_ + this->output_offset_ * g);
+                                (Dtype)1., weights + this->weight_offset_ * g, this->col_buffer_.gpu_data() + this->col_offset_ * g,
+                                (Dtype)0., top[0]->mutable_gpu_data() + n * this->top_dim_ + this->output_offset_ * g);                      
+       
     }
-
+    
     if (this->bias_term_) {
       const Dtype* bias = this->blobs_[1]->gpu_data();
       caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasNoTrans, this->num_output_,
@@ -38,6 +39,8 @@ void DeformableConvolutionLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& 
           (Dtype)1., top_data + n * this->top_dim_);
       }
   }
+  
+  
 }
 
 template <typename Dtype>
