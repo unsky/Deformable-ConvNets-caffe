@@ -35,19 +35,19 @@ __C.TRAIN = edict()
 
 # Scales to use during training (can list multiple scales)
 # Each scale is the pixel size of an image's shortest side
-__C.TRAIN.SCALES = (400,)
+__C.TRAIN.SCALES = (600,)
 
 # Resize test images so that its width and height are multiples of ...
 __C.TRAIN.SCALE_MULTIPLE_OF = 1
 
 # Max pixel size of the longest side of a scaled input image
-__C.TRAIN.MAX_SIZE = 800
+__C.TRAIN.MAX_SIZE = 1000
 
 # Images to use per minibatch
 __C.TRAIN.IMS_PER_BATCH = 2
 
 # Minibatch size (number of regions of interest [ROIs])
-__C.TRAIN.BATCH_SIZE = 100
+__C.TRAIN.BATCH_SIZE = 256
 
 # Fraction of minibatch that is labeled foreground (i.e. class > 0)
 __C.TRAIN.FG_FRACTION = 0.25
@@ -135,13 +135,13 @@ __C.TEST = edict()
 
 # Scales to use during testing (can list multiple scales)
 # Each scale is the pixel size of an image's shortest side
-__C.TEST.SCALES = (400,)
+__C.TEST.SCALES = (600,)
 
 # Resize test images so that its width and height are multiples of ...
 __C.TEST.SCALE_MULTIPLE_OF = 1
 
 # Max pixel size of the longest side of a scaled input image
-__C.TEST.MAX_SIZE = 800
+__C.TEST.MAX_SIZE = 1000
 
 # Overlap threshold used for non-maximum suppression (suppress boxes with
 # IoU >= this threshold)
@@ -165,12 +165,12 @@ __C.TEST.RPN_NMS_THRESH = 0.7
 ## Number of top scoring boxes to keep before apply NMS to RPN proposals
 __C.TEST.RPN_PRE_NMS_TOP_N = 6000
 ## Number of top scoring boxes to keep after applying NMS to RPN proposals
-__C.TEST.RPN_POST_NMS_TOP_N = 200
+__C.TEST.RPN_POST_NMS_TOP_N = 500
 # Proposal height and width both need to be greater than RPN_MIN_SIZE (at orig image scale)
 __C.TEST.RPN_MIN_SIZE = 0
 
 # Apply bounding box voting
-__C.TEST.BBOX_VOTE = False
+__C.TEST.BBOX_VOTE = True
 
 # Apply box scoring heuristics
 __C.TEST.BBOX_VOTE_N_WEIGHTED_SCORE = 1
