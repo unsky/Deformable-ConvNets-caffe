@@ -1,8 +1,8 @@
 ## Caffe implementation of Deformable Convolutional Networks
  * Thanks to offical code: https://github.com/msracver/Deformable-ConvNets
  
-## faster rcnn results:
-`this result is without OHEM and deformable roi pooling`
+## results:
+`faster rcnn(resnet50) result is implemented without OHEM and deformable roi pooling`
 
 |@0.5|aeroplane|bicycle|bird|boat|bottle|bus|car|cat|chair|cow|
 |:--:|:-------:| -----:| --:| --:|-----:|--:|--:|--:|----:|--:|
