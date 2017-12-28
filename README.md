@@ -5,6 +5,7 @@
 `this result is without OHEMand deformable roi pooling`
 |@0.5|aeroplane|bicycle|bird|boat|bottle|bus|car|cat|chair|cow|diningtable|dog |horse|motorbike|person |pottedplant|sheep|sofa|train|tv|
 |:--:|:-------:| -----:| --:| --:|-----:|--:|--:|--:|----:|--:|----------:|:--:|:---:| -------:| -----:| -------:|----:|---:|----:|--:|
+
 |0.7811|0.7810| 0.8560| 0.7828|0.6910|0.5948|0.8430|0.8741|0.8878|0.6213|0.8347|0.7324|0.8695|0.8893| 0.8507| 0.7986| 0.5226|0.7791|0.7933|0.8528|0.7668|
 ## Usage
 ### Use my  modified caffe 
