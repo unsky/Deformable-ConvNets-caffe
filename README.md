@@ -2,7 +2,7 @@
  * Thanks to offical code: https://github.com/msracver/Deformable-ConvNets
  
 ## faster rcnn results:
-`this result is without OHEMand deformable roi pooling`
+`this result is without OHEM and deformable roi pooling`
 
 |@0.5|aeroplane|bicycle|bird|boat|bottle|bus|car|cat|chair|cow|
 |:--:|:-------:| -----:| --:| --:|-----:|--:|--:|--:|----:|--:|
