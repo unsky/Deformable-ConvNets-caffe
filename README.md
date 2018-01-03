@@ -2,7 +2,8 @@
  * Thanks to offical code: https://github.com/msracver/Deformable-ConvNets
  
 ## results:
-`faster rcnn(resnet50) result is implemented without OHEM and deformable roi pooling`
+`faster rcnn(resnet50) result is implemented without OHEM and deformable roi pooling `
+`train with pascal voc 2007 + 2012 test on 2007`
 
 |mAP@0.5|aeroplane|bicycle|bird|boat|bottle|bus|car|cat|chair|cow|
 |:--:|:-------:| -----:| --:| --:|-----:|--:|--:|--:|----:|--:|
