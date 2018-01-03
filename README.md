@@ -23,19 +23,19 @@ Compile:
 mkdir build cd build cmake ..  make  all
 ```
 
-Train:
+Train & test:
+
 ```cbash
 cd caffe/defor/
 ./train_lenet.sh
 ```
 and the model is in caffe/defor/model_protxt/
 ### use faster rcnn
-Train:
+
+Train &test:
+
 ```bash
 ./experiments/scripts/faster_rcnn_end2end.sh  0 ResNet50  pascal_voc
-```
-test
-```bash
 ./test.sh  0 ResNet50  pascal_voc
 ```
 
