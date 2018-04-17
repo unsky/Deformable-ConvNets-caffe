@@ -15,7 +15,7 @@
 |0.7324|0.8695|0.8893|0.8507|0.7986|0.5226|0.7791|0.7933|0.8528|0.7668|
 
 ## Usage
-### Use my  modified caffe 
+### Use  modified caffe 
 The MNIST example is in caffe/defor/ 
 
 Compile:
@@ -31,6 +31,13 @@ cd caffe/defor/
 ```
 and the model is in caffe/defor/model_protxt/
 ### use faster rcnn
+
+download  voc07,12 dataset `ResNet50.caffemodel` and rename to `ResNet50.v2.caffemodel`
+
+```bash
+cp ResNet50.v2.caffemodel data/pretrained_model/
+```
+- OneDrive download: [link](https://onedrive.live.com/?authkey=%21AAFW2-FVoxeVRck&id=4006CBB8476FF777%2117887&cid=4006CBB8476FF777)
 
 Train &test:
 
